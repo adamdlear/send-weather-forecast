@@ -1,3 +1,4 @@
+from asyncore import write
 from email import message
 import pickle
 import os
@@ -13,9 +14,14 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.audio import MIMEAudio
 from email.mime.base import MIMEBase
 import mimetypes
+from weather_forecast import write_email_body
+import random
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://mail.google.com/']
+
+def get_random_photo():
+    return random.choice(os.listdir('random-photos'))
 
 
 def get_service():
@@ -97,9 +103,9 @@ if __name__ == '__main__':
     user_id = 'me'
     sender = 'weatherforyoutoo@gmail.com'
     to = 'adamjoecool@gmail.com'
-    subject = 'Test Weather email'
-    body = 'Hello, try this again with the functions and different files'
-    file = 'sample.txt'
+    subject = 'Test Weather Email'
+    body = write_email_body()
+    file = 'random-photos/' + get_random_photo()
 
     msg = create_message_with_attachment(sender, to, subject, body, file)
     send_message(service, user_id, msg)

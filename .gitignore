@@ -1,0 +1,6 @@
+*.log
+temp/
+__pycache__
+credentials.json
+token.json
+.idea
