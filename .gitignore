@@ -1,6 +1,6 @@
 *.log
 temp/
 __pycache__
-credentials.json
+credentials.*
 token.json
 .idea

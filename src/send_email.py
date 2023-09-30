@@ -1,6 +1,3 @@
-from asyncore import write
-from email import message
-import pickle
 import os
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -19,6 +16,7 @@ import random
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://mail.google.com/']
+
 
 def get_random_photo():
     return random.choice(os.listdir('random-photos'))
@@ -50,6 +48,7 @@ def get_service():
     service = build('gmail', 'v1', credentials=creds)
     return service
 
+
 def send_message(service, user_id, message):
     try:
         message = service.users().messages().send(userId=user_id, body=message).execute()
@@ -57,8 +56,9 @@ def send_message(service, user_id, message):
         return message
 
     except Exception as e:
-        print('an error occured: {}'.format(e))
+        print('an error occurred: {}'.format(e))
     pass
+
 
 def create_message_with_attachment(sender, to, subject, body, file):
     message = MIMEMultipart()
@@ -81,7 +81,7 @@ def create_message_with_attachment(sender, to, subject, body, file):
             msg = MIMEText(f.read().decode('utf-8'), _subtype=sub_type)
     elif main_type == 'image':
         with open(file, 'rb') as f:
-            msg - MIMEImage(f.read(), _subtype=sub_type)
+            msg = MIMEImage(f.read(), _subtype=sub_type)
     elif main_type == 'audio':
         with open(file, 'rb') as f:
             msg = MIMEAudio(f.read(), _subtype=sub_type)
@@ -98,11 +98,12 @@ def create_message_with_attachment(sender, to, subject, body, file):
 
     return {'raw': raw_msg.decode('utf-8')}
 
+
 if __name__ == '__main__':
     service = get_service()
     user_id = 'me'
     sender = 'weatherforyoutoo@gmail.com'
-    to = 'adamjoecool@gmail.com'
+    to = 'targetemail@domain.com'
     subject = 'Test Weather Email'
     body = write_email_body()
     file = 'random-photos/' + get_random_photo()
