@@ -1,0 +1,7 @@
+*.log
+temp/
+__pycache__
+credentials.*
+token.json
+.idea
+.DS_Store
