@@ -4,3 +4,4 @@ __pycache__
 credentials.*
 token.json
 .idea
+.DS_Store
